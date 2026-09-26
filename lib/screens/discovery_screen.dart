@@ -27,6 +27,7 @@ class DeviceDiscoveryNotifier extends AsyncNotifier<List<DiscoveredDevice>> {
     _devices.clear();
 
     _discovery = BonsoirDiscovery(type: _androidTvRemoteServiceType);
+    await _discovery!.initialize();
 
     final stream = _discovery!.eventStream;
     if (stream != null) {
