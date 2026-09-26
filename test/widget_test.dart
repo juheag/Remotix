@@ -11,9 +11,18 @@ import 'package:remotix/main.dart';
 
 void main() {
   testWidgets('Remotix loads the connection selection screen', (tester) async {
-    await tester.pumpWidget(const RemotixApp());
+    // RemotixApp uses Riverpod (ConnectionSelectionScreen is a ConsumerWidget),
+    // so it needs a ProviderScope ancestor - pump MyApp, which supplies one.
+    await tester.pumpWidget(const MyApp());
 
     expect(find.text('Selecciona el método de control'), findsOneWidget);
     expect(find.text('Continuar'), findsOneWidget);
+  });
+
+  testWidgets('Wi-Fi option is selected by default and enables Continuar', (tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    final continueButton = tester.widget<FilledButton>(find.byType(FilledButton));
+    expect(continueButton.onPressed, isNotNull);
   });
 }
