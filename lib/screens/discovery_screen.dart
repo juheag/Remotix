@@ -178,7 +178,7 @@ class DiscoveryScreen extends ConsumerWidget {
 
                     return ListView.separated(
                       itemCount: devices.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 10),
+                      separatorBuilder: (_, _) => const SizedBox(height: 10),
                       itemBuilder: (context, index) {
                         final device = devices[index];
                         return Card(

@@ -11,7 +11,6 @@ import 'dart:typed_data';
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:crypto/crypto.dart';
-import 'package:pointycastle/asymmetric/api.dart';
 
 class PairingSecretMismatch implements Exception {
   final String message;
@@ -65,10 +64,10 @@ Uint8List computePairingSecret({
     throw const PairingSecretMismatch('El código debe tener exactamente 6 caracteres hexadecimales.');
   }
 
-  final clientModHex = clientPublicKey.modulus.toRadixString(16);
-  final clientExpHex = '0${clientPublicKey.exponent.toRadixString(16)}';
-  final serverModHex = serverPublicKey.modulus.toRadixString(16);
-  final serverExpHex = '0${serverPublicKey.exponent.toRadixString(16)}';
+  final clientModHex = clientPublicKey.modulus!.toRadixString(16);
+  final clientExpHex = '0${clientPublicKey.exponent!.toRadixString(16)}';
+  final serverModHex = serverPublicKey.modulus!.toRadixString(16);
+  final serverExpHex = '0${serverPublicKey.exponent!.toRadixString(16)}';
   final codeTail = code.substring(2);
 
   final input = BytesBuilder()

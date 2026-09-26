@@ -8,7 +8,6 @@ import 'dart:io';
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pointycastle/asymmetric/api.dart';
 
 class AtvIdentity {
   final RSAPrivateKey privateKey;
