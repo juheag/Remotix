@@ -37,9 +37,8 @@ class DeviceDiscoveryNotifier extends AsyncNotifier<List<DiscoveredDevice>> {
         } else if (event is BonsoirDiscoveryServiceResolvedEvent) {
           final service = event.service;
           final friendlyName = service.name;
-          final json = service.toJson();
-          final host = (json['host'] ?? json['ip'] ?? json['address'] ?? '').toString();
-          if (host.isEmpty) return;
+          final host = service.hostAddress;
+          if (host == null || host.isEmpty) return;
 
           final exists = _devices.any((d) => d.name == friendlyName);
           if (!exists) {
