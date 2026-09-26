@@ -28,7 +28,8 @@
 	<true/>
 	<key>NSBonjourServices</key>
 	<array>
-		<string>_googlecast._tcp</string>
+		<string>_androidtvremote2._tcp.</string>
+		<string>_googlecast._tcp.</string>
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Remotix necesita acceder a la red local para descubrir tu televisor Kalley.</string>
