@@ -81,6 +81,37 @@ final deviceDiscoveryProvider = AsyncNotifierProvider<DeviceDiscoveryNotifier, L
   () => DeviceDiscoveryNotifier(),
 );
 
+Future<void> _showManualIpDialog(BuildContext context) async {
+  final controller = TextEditingController();
+  final ip = await showDialog<String>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      title: const Text('Conectar por IP'),
+      content: TextField(
+        controller: controller,
+        autofocus: true,
+        keyboardType: TextInputType.numberWithOptions(decimal: true),
+        decoration: const InputDecoration(hintText: '192.168.1.50', border: OutlineInputBorder()),
+        onSubmitted: (value) => Navigator.of(ctx).pop(value.trim()),
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.of(ctx).pop(), child: const Text('Cancelar')),
+        FilledButton(onPressed: () => Navigator.of(ctx).pop(controller.text.trim()), child: const Text('Conectar')),
+      ],
+    ),
+  );
+
+  if (ip == null || ip.isEmpty || !context.mounted) return;
+
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) => DeviceConnectScreen(
+        device: DiscoveredDevice(id: 'manual-$ip', name: 'TV ($ip)', ipAddress: ip, brand: 'IP manual'),
+      ),
+    ),
+  );
+}
+
 class DiscoveryScreen extends ConsumerWidget {
   const DiscoveryScreen({super.key});
 
@@ -203,6 +234,12 @@ class DiscoveryScreen extends ConsumerWidget {
                     );
                   },
                 ),
+              ),
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                onPressed: () => _showManualIpDialog(context),
+                icon: const Icon(Icons.edit),
+                label: const Text('Conectar por IP manual'),
               ),
             ],
           ),
